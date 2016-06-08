@@ -1,6 +1,10 @@
 require('dotenv').config();
 
 var express = require('express');
+var passport = require('passport');
+var session = require('express-session');
+var RedisStore = require('connect-redis')(session);
+
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -18,6 +22,22 @@ app.set('view engine', 'hjs');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+
+require('./authentication').init(app);
+
+
+app.use(session({
+  store: new RedisStore({
+    url: process.env.REDIS_URL
+  }),
+  secret: process.env.REDIS_SECRET,
+  resave: false,
+  saveUnitialized: false
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -26,6 +46,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
+
+require('./user').init(app);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
