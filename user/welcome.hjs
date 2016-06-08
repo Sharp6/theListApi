@@ -1,4 +1,4 @@
-<h3>Hey! You have to log in:/</h3>
+<h3>Hey! You have to log in:</h3>
 
 <form action="/login" method="post">
   <input name="username" id="username" type="text" placeholder="Your username" />

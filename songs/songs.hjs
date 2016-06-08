@@ -1,0 +1,6 @@
+<h3>These are mah songs, biatch!</h3>
+{{username}}
+
+{{#songs}}
+	{{title}} - {{status}}
+{{/songs}}
