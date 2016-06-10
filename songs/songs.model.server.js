@@ -7,7 +7,6 @@ var Song = function(data) {
 	this.status = data.status || "added";
 	this.users  = data.users  || ["admin"];
 
-
 	/*
 	var init = function(data) {
 		this.songId = uuid.v1();

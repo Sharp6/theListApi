@@ -1,3 +1,9 @@
+var allowCrossDomain = function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+}
+
 require('dotenv').config();
 
 var express = require('express');
@@ -20,7 +26,12 @@ var app = express();
 //app.set('views', path.join(__dirname, './'));
 //app.set('view engine', 'hjs');
 var exphbs = require('express-handlebars');
-app.engine('.hbs', exphbs({defaultLayout: 'single', extname: '.hbs'}));
+app.engine('.hbs', exphbs({
+  defaultLayout: 'single', 
+  extname: '.hbs',
+  layoutsDir: path.join(__dirname, 'views/layouts');
+  partialsDir: path.join(__dirname, 'views/partials');
+}));
 app.set('view engine', '.hbs');
 
 // uncomment after placing your favicon in /public
