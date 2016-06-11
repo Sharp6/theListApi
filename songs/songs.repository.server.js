@@ -27,9 +27,16 @@ var SongsRepository = function() {
 			});
 	}
 
+	var createSong = function(data) {
+		var newSong = new Song(data);
+		songs.push(newSong);
+		return songDA.save(newSong);
+	}
+
 	return {
 		getSongsForUser: getSongsForUser,
-		getAllSongs: getAllSongs
+		getAllSongs: getAllSongs,
+		createSong: createSong
 	}
 }
 

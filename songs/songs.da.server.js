@@ -14,7 +14,31 @@ var SongDA = function() {
 	
 	var save = function(song) {
 		return new Promise(function(resolve, reject) {
-			resolve();
+			songModel.findOne({ songId: song.songId }).exec(function(err,doc) {
+				if(err) {
+					reject(err);
+					return;
+				} 
+				if(doc) {
+					// Song already exists, an update should happen.
+					resolve();
+				} else {
+					var newSong = new songModel();
+
+					newSong.songId = song.songId;
+					newSong.title = song.title;
+					newSong.status = song.status;
+					newSong.users = song.users;
+
+					newSong.save(function(err) {
+						if(err) {
+							reject(err);
+						} else {
+							resolve(newSong);
+						}
+					})
+				}
+			})
 		});
 	}
 

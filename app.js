@@ -29,8 +29,8 @@ var exphbs = require('express-handlebars');
 app.engine('.hbs', exphbs({
   defaultLayout: 'single', 
   extname: '.hbs',
-  layoutsDir: path.join(__dirname, 'views/layouts');
-  partialsDir: path.join(__dirname, 'views/partials');
+  layoutsDir: path.join(__dirname, 'views/layouts'),
+  partialsDir: path.join(__dirname, 'views/partials')
 }));
 app.set('view engine', '.hbs');
 
