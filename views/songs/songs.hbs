@@ -1,16 +1,19 @@
 <h3>These are mah ({{username}}) songs, biatch!</h3>
 
 <table class="table">
-
+<thead>
 <tr>
 	<th>Title</th>
 	<th>Status</th>
 </tr>
+</thead>
 
+<tbody>
 {{#songs}}
 	<tr>
 		<td>{{title}}</td>
 		<td>{{status}}</td>
 	</tr>
 {{/songs}}
+</tbody>
 </table>
