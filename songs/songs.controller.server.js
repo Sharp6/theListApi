@@ -1,4 +1,5 @@
 var songsRepo = require('./songs.repository.server');
+var userRepo = require('../user/user.repository.server');
 
 function getSongs(req,res) {
 	songsRepo.getSongsForUser(req.user.username)
@@ -14,9 +15,16 @@ function getSongs(req,res) {
 }
 
 function showNewSongForm(req,res) {
-	res.render('songs/newSongForm', {
-		username: req.user.username
-	});
+	userRepo.getAllUsers()
+		.then(function(users) {
+			res.render('songs/newSongForm', {
+				username: req.user.username,
+				users: users
+			});		
+		})
+		.catch(function(err) {
+			res.send(err);
+		});	
 }
 
 function addNewSong(req,res) {
