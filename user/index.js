@@ -1,3 +1,3 @@
 module.exports = {
-	init: require('./init')
-}
+	routes: require('./user.routes.server')
+};

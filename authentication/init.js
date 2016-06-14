@@ -1,29 +1,33 @@
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var userRepo = require('../user/user.repository.server');
 
 var authenticationMiddleware = require('./middleware');
 
 function findUser(username, cb) {
+	// Get users from db
+	var user = userRepo.getUserByUsername(username);
+	/*
 	var user = {
 		username: 'testUser',
 		password: 'testPassword',
 		id: 1
-	}
+	};
+	*/
 
 	if(username === user.username) {
-		return cb(null, user); 	
-	} else {
+		return cb(null, user);
+	}	else {
 		return cb(null);
 	}
-	
 }
 
 passport.serializeUser(function (user, cb) {
-  cb(null, user.username)
+	cb(null, user.username);
 });
 
 passport.deserializeUser(function (username, cb) {
-  findUser(username, cb)
+	findUser(username, cb);
 });
 
 function initPassport() {
@@ -39,7 +43,7 @@ function initPassport() {
 				return done(null, user);
 			}
 		});
-	}));	
+	}));
 	passport.authenticationMiddleware = authenticationMiddleware;
 }
 

@@ -62,7 +62,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-require('./user').init(app);
+require('./user').routes(app);
 require('./songs').routes(app);
 
 // catch 404 and forward to error handler
