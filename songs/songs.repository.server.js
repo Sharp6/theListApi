@@ -12,7 +12,25 @@ var SongsRepository = function() {
 						return song.users.indexOf(username) > -1;
 					});
 			});
-	}
+	};
+
+	var getSong = function(songId) {
+		var song = songs.find(function(aSong) {
+			return aSong.songId === songId;
+		});
+		if(song) {
+			return new Promise(function(resolve,reject) {
+				resolve(song);
+			});
+		} else {
+			return songDA.load(songId)
+				.then(function(songData) {
+					var newSong = new Song(songData);
+					songs.push(newSong);
+					return newSong;
+				});
+		}
+	};
 
 	var getAllSongs = function() {
 		songs = [];
@@ -25,19 +43,20 @@ var SongsRepository = function() {
 						return newSong;
 					});
 			});
-	}
+	};
 
 	var createSong = function(data) {
 		var newSong = new Song(data);
 		songs.push(newSong);
 		return songDA.save(newSong);
-	}
+	};
 
 	return {
 		getSongsForUser: getSongsForUser,
+		getSong: getSong,
 		getAllSongs: getAllSongs,
 		createSong: createSong
-	}
-}
+	};
+};
 
 module.exports = new SongsRepository();

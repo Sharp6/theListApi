@@ -24,6 +24,21 @@ var UserDA = function() {
 		});
 	};
 
+	var loadByName = function(username) {
+		return new Promise(function(resolve,reject) {
+			userModel.findOne({ username: username }).exec(function(err,doc) {
+				if(err) {
+					reject(err);
+					return;
+				} else if(doc) {
+					resolve(doc);
+				} else {
+					reject("No user found with that username.");
+				}
+			});
+		});
+	};
+
 	var loadAll = function() {
 		return new Promise(function(resolve,reject) {
 			userModel.find().exec(function(err,doc) {
@@ -38,7 +53,8 @@ var UserDA = function() {
 
 	return {
 		load: load,
-		loadAll: loadAll
+		loadAll: loadAll,
+		loadByName: loadByName
 	};
 
 };

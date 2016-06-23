@@ -5,6 +5,7 @@
 <tr>
 	<th>Title</th>
 	<th>Status</th>
+	<th>Users</th>
 </tr>
 </thead>
 
@@ -13,6 +14,13 @@
 	<tr>
 		<td>{{title}}</td>
 		<td>{{status}}</td>
+		<td>
+			<ul>
+			{{#users}}
+				<li>{{this}}</li>
+			{{/users}}
+			</ul>
+		</td>
 	</tr>
 {{/songs}}
 </tbody>

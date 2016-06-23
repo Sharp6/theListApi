@@ -5,21 +5,17 @@ var userRepo = require('../user/user.repository.server');
 var authenticationMiddleware = require('./middleware');
 
 function findUser(username, cb) {
-	// Get users from db
-	var user = userRepo.getUserByUsername(username);
-	/*
-	var user = {
-		username: 'testUser',
-		password: 'testPassword',
-		id: 1
-	};
-	*/
+	var user = userRepo.getUserByName(username)
+		.then(function(user) {
+			console.log("AUTHMIDDLE: GOT USERNAME", username);
+			console.log("AUTHMIDDLE: GOT USER", user);
 
-	if(username === user.username) {
-		return cb(null, user);
-	}	else {
-		return cb(null);
-	}
+			if(username === user.username) {
+				return cb(null, user);
+			}	else {
+				return cb(null);
+			}
+		});
 }
 
 passport.serializeUser(function (user, cb) {

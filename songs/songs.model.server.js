@@ -6,8 +6,7 @@ var Song = function(data) {
 	this.title  = data.title  || "";
 	this.status = data.status || "added";
 	
-	var dataUsers = data.users || [];
-	this.users  = [ "admin" ].concat(dataUsers);
-}
+	this.users = data.users || [];
+};
 
 module.exports = Song;

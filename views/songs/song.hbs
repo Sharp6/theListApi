@@ -1,0 +1,13 @@
+<h3>This is mah ({{username}}) song, biatch!</h3>
+<ul>
+	<li>{{song.title}}</li>
+	<li>{{song.status}}</li>
+	<li>
+		<ul>
+			{{#song.users}}
+				{{this}}
+			{{/song.users}}
+		</ul>
+	</li>
+
+</ul>
