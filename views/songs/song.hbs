@@ -2,12 +2,24 @@
 <ul>
 	<li>{{song.title}}</li>
 	<li>{{song.status}}</li>
-	<li>
+	<li> Users
 		<ul>
 			{{#song.users}}
-				{{this}}
+				<li>{{this}}</li>
 			{{/song.users}}
 		</ul>
 	</li>
-
 </ul>
+
+<h4>Actions</h4>
+<h5>Update status</h5>
+
+<form action="/songs/{{song.songId}}" method="POST">
+	<select class="form-control" name="status" id="status">
+		<option value="Added">Added</option>
+		<option value="Arranged">Arranged</option>
+		<option value="In practice">In practice</option>
+		<option value="Performing">Performing</option>
+	<select>
+	<input type="submit" class="btn" value="submit" />
+</form>

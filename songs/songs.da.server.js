@@ -18,10 +18,21 @@ var SongDA = function() {
 				if(err) {
 					reject(err);
 					return;
-				} 
+				}
 				if(doc) {
 					// Song already exists, an update should happen.
-					resolve();
+					console.log("SONGDA: UPDATING");
+
+					// Currently, only status is updated/
+					doc.status = song.status;
+
+					doc.save(function(err) {
+						if(err) {
+							reject(err);
+						} else {
+							resolve(song);
+						}
+					});
 				} else {
 					var newSong = new songModel();
 
@@ -36,11 +47,11 @@ var SongDA = function() {
 						} else {
 							resolve(newSong);
 						}
-					})
+					});
 				}
-			})
+			});
 		});
-	}
+	};
 
 	var load = function(id) {
 		return new Promise(function(resolve,reject) {
@@ -55,7 +66,7 @@ var SongDA = function() {
 				}
 			});
 		});
-	}
+	};
 
 	var loadAll = function() {
 		return new Promise(function(resolve,reject) {
@@ -65,16 +76,16 @@ var SongDA = function() {
 				} else {
 					resolve(doc);
 				}
-			});	
+			});
 		});
-	}
+	};
 
 	return {
 		load: load,
 		save: save,
 		loadAll: loadAll
-	}
-}
+	};
+};
 
 // DA should be a singleton
 module.exports = new SongDA();

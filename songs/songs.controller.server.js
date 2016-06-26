@@ -27,6 +27,20 @@ function getSong(req,res) {
 		});
 }
 
+function updateSong(req,res) {
+	songsRepo.updateSong(req.params.id, req.body)
+		.then(function(song) {
+			console.log("SONG CONTROLLER: RENDERING");
+			res.render('songs/song', {
+				username: req.user.username,
+				song: song
+			});
+		})
+		.catch(function(err) {
+			res.send(err);
+		});
+}
+
 function showNewSongForm(req,res) {
 	userRepo.getAllUsers()
 		.then(function(users) {
@@ -60,6 +74,7 @@ function addNewSong(req,res) {
 module.exports = {
 	getSongs: getSongs,
 	getSong: getSong,
+	updateSong: updateSong,
 	showNewSongForm: showNewSongForm,
 	addNewSong: addNewSong
 };

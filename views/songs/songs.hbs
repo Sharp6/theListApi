@@ -12,7 +12,11 @@
 <tbody>
 {{#songs}}
 	<tr>
-		<td>{{title}}</td>
+		<td>
+			<a href="/songs/{{songId}}">
+				{{title}}
+			</a>
+		</td>
 		<td>{{status}}</td>
 		<td>
 			<ul>

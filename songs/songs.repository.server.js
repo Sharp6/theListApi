@@ -45,6 +45,18 @@ var SongsRepository = function() {
 			});
 	};
 
+	// Currently, only updating the status is supported
+	var updateSong = function(songId, data) {
+		return getSong(songId)
+			.then(function(song) {
+				song.status = data.status;
+				return songDA.save(song);
+			})
+			.then(function(song) {
+				return song;
+			});
+	};
+
 	var createSong = function(data) {
 		var newSong = new Song(data);
 		songs.push(newSong);
@@ -54,6 +66,7 @@ var SongsRepository = function() {
 	return {
 		getSongsForUser: getSongsForUser,
 		getSong: getSong,
+		updateSong: updateSong,
 		getAllSongs: getAllSongs,
 		createSong: createSong
 	};
