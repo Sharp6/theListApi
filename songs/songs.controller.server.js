@@ -15,11 +15,14 @@ function getSongs(req,res) {
 }
 
 function getSong(req,res) {
-	songsRepo.getSong(req.params.id)
-		.then(function(song) {
+	Promise.all([
+		songsRepo.getSong(req.params.id),
+		userRepo.getAllUsers()
+	]).then(function(results) {
 			res.render('songs/song', {
 				username: req.user.username,
-				song: song
+				users: results[1],
+				song: results[0]
 			});
 		})
 		.catch(function(err) {
@@ -57,6 +60,7 @@ function showNewSongForm(req,res) {
 function addNewSong(req,res) {
 	var data = req.body;
 
+	console.log("SONG CONTROLLER: ADDING NEW SONG");
 	var userData = req.body.users || [];
 	var users = [].concat(userData); // if only one user is selecters, req.body.users is not an array
 	if(users.indexOf(req.user.username) === -1) { // add current user if he/she did not select him/herself
