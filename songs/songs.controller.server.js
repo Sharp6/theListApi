@@ -34,10 +34,8 @@ function updateSong(req,res) {
 	songsRepo.updateSong(req.params.id, req.body)
 		.then(function(song) {
 			console.log("SONG CONTROLLER: RENDERING");
-			res.render('songs/song', {
-				username: req.user.username,
-				song: song
-			});
+			// Isn't this a bit fishy? getSong does not return anything, I think
+			getSong(req,res);
 		})
 		.catch(function(err) {
 			res.send(err);

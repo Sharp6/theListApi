@@ -49,7 +49,14 @@ var SongsRepository = function() {
 	var updateSong = function(songId, data) {
 		return getSong(songId)
 			.then(function(song) {
-				song.status = data.status;
+				if(data.status) {
+					song.status = data.status;
+				}
+
+				if(data.users) {
+					song.users = data.users;
+				}
+				
 				return songDA.save(song);
 			})
 			.then(function(song) {
