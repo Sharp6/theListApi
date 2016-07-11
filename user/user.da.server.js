@@ -51,10 +51,52 @@ var UserDA = function() {
 		});
 	};
 
+	var save = function(user) {
+		return new Promise(function(resolve, reject) {
+			userModel.findOne({ userId: user.userId }).exec(function(err,doc) {
+				if(err) {
+					reject(err);
+					return;
+				}
+				if(doc) {
+					// user already exists, an update should happen.
+					console.log("USERDA: UPDATING");
+
+					// Currently, only status is updated/
+					doc.status = song.status;
+
+					doc.save(function(err) {
+						if(err) {
+							reject(err);
+						} else {
+							resolve(song);
+						}
+					});
+				} else {
+					var newSong = new songModel();
+
+					newSong.songId = song.songId;
+					newSong.title = song.title;
+					newSong.status = song.status;
+					newSong.users = song.users;
+
+					newSong.save(function(err) {
+						if(err) {
+							reject(err);
+						} else {
+							resolve(newSong);
+						}
+					});
+				}
+			});
+		});
+	};
+
 	return {
 		load: load,
 		loadAll: loadAll,
-		loadByName: loadByName
+		loadByName: loadByName,
+		save: save
 	};
 
 };
