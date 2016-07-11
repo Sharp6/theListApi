@@ -2,7 +2,7 @@ var allowCrossDomain = function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'Content-Type');
     next();
-}
+};
 
 require('dotenv').config();
 
@@ -27,10 +27,18 @@ var app = express();
 //app.set('view engine', 'hjs');
 var exphbs = require('express-handlebars');
 app.engine('.hbs', exphbs({
-  defaultLayout: 'single', 
+  defaultLayout: 'single',
   extname: '.hbs',
   layoutsDir: path.join(__dirname, 'views/layouts'),
-  partialsDir: path.join(__dirname, 'views/partials')
+  partialsDir: path.join(__dirname, 'views/partials'),
+  helpers: {
+    ifIn: function(elem, list, options) {
+      if(list.indexOf(elem) > -1) {
+        return options.fn(this);
+      }
+      return options.inverse(this);
+    }
+  }
 }));
 app.set('view engine', '.hbs');
 

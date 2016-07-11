@@ -9,6 +9,14 @@ function userRoutes(app) {
 		successRedirect: '/profile',
 		failureRedirect: '/'
 	}));
+
+	app.get('/signup', userCtrl.renderSignup);
+	app.post('/signup', userCtrl.signupUser);
+
+	app.get('/logout', function(req, res){
+		req.logout();
+		res.redirect('/');
+	});
 }
 
 module.exports = userRoutes;

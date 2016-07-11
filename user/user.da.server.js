@@ -62,29 +62,28 @@ var UserDA = function() {
 					// user already exists, an update should happen.
 					console.log("USERDA: UPDATING");
 
-					// Currently, only status is updated/
-					doc.status = song.status;
+					// Currently, only password is updated
+					doc.password = user.password;
 
 					doc.save(function(err) {
 						if(err) {
 							reject(err);
 						} else {
-							resolve(song);
+							resolve(user);
 						}
 					});
 				} else {
-					var newSong = new songModel();
+					var newUser = new userModel();
 
-					newSong.songId = song.songId;
-					newSong.title = song.title;
-					newSong.status = song.status;
-					newSong.users = song.users;
+					newUser.userId = user.userId;
+					newUser.username = user.username;
+					newUser.password = user.password;
 
-					newSong.save(function(err) {
+					newUser.save(function(err) {
 						if(err) {
 							reject(err);
 						} else {
-							resolve(newSong);
+							resolve(newUser);
 						}
 					});
 				}

@@ -38,9 +38,16 @@ var UserRepository = function() {
 		});
 	};
 
+	var createUser = function(data) {
+		var newUser = new User(data);
+		users.push(newUser);
+		return userDA.save(newUser);
+	};
+
 	return {
 		getAllUsers: getAllUsers,
-		getUserByName: getUserByName
+		getUserByName: getUserByName,
+		createUser: createUser
 	};
 };
 

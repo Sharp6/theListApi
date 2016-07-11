@@ -45,7 +45,6 @@ var SongsRepository = function() {
 			});
 	};
 
-	// Currently, only updating the status is supported
 	var updateSong = function(songId, data) {
 		return getSong(songId)
 			.then(function(song) {

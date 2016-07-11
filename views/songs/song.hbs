@@ -31,7 +31,7 @@
 	{{#users}}
 		<div class="checkbox">
 			<label>
-				<input type="checkbox" value="{{username}}" name="users" id="users">{{username}}
+				<input type="checkbox" value="{{username}}" name="users" id="users" {{#ifIn username ../song.users }}checked{{/ifIn}}>{{username}}
 			</label>
 		</div>
 	{{/users}}
