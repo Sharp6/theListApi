@@ -23,9 +23,14 @@ var SongDA = function() {
 					// Song already exists, an update should happen.
 					console.log("SONGDA: UPDATING");
 
-					// Currently, only status is updated/
-					doc.status = song.status;
-
+					// This feels wrong, I already did this in the repository... Could it be that I can assume here that all fields need to be updated?
+					if(song.status) {
+						doc.status = song.status;
+					}
+					if(song.users) {
+						doc.users = song.users;
+					}
+					
 					doc.save(function(err) {
 						if(err) {
 							reject(err);
