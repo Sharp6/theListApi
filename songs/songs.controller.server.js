@@ -1,6 +1,8 @@
 var songsRepo = require('./songs.repository.server');
 var userRepo = require('../user/user.repository.server');
 
+var videoRetriever = require('../VideoRetriever');
+
 function getSongs(req,res) {
 	songsRepo.getSongsForUser(req.user.username)
 		.then(function(songs) {
@@ -15,8 +17,12 @@ function getSongs(req,res) {
 }
 
 function getSong(req,res) {
+	var songPromise = songsRepo.getSong(req.params.id)
+		.then(function(song) {
+			return videoRetriever.retrieve(song);
+		});
 	Promise.all([
-		songsRepo.getSong(req.params.id),
+		songPromise,
 		userRepo.getAllUsers()
 	]).then(function(results) {
 			res.render('songs/song', {
