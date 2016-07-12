@@ -19,7 +19,10 @@ function getSongs(req,res) {
 function getSong(req,res) {
 	var songPromise = songsRepo.getSong(req.params.id)
 		.then(function(song) {
-			return videoRetriever.retrieve(song);
+			return videoRetriever.retrieve(song, "cover");
+		})
+		.then(function(song) {
+			return videoRetriever.retrieve(song, "official");
 		});
 	Promise.all([
 		songPromise,
