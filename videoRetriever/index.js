@@ -22,6 +22,10 @@ var VideoRetriever = function() {
 						return "https://youtube.com/watch?v=" + id;
 					});*/
 
+					if(!song.videos) {
+						song.videos = {};
+					}
+
 					song.videos[query] = ids;
 					resolve(song);
 				}
