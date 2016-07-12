@@ -3,6 +3,7 @@ var Schema = mongoose.Schema;
 var SongSchema = new Schema({
 	songId: String,
 	title: String,
+	author: String,
 	status: String,
 	users: [ String ]
 });
@@ -27,6 +28,12 @@ var SongDA = function() {
 					if(song.status) {
 						doc.status = song.status;
 					}
+					if(song.author) {
+						doc.author = song.author;
+					}
+					if(song.title) {
+						doc.title = song.title;
+					}
 					if(song.users) {
 						doc.users = song.users;
 					}
@@ -43,6 +50,7 @@ var SongDA = function() {
 
 					newSong.songId = song.songId;
 					newSong.title = song.title;
+					newSong.author = song.author;
 					newSong.status = song.status;
 					newSong.users = song.users;
 

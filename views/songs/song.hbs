@@ -2,6 +2,7 @@
 
 <ul>
 	<li>{{song.title}}</li>
+	<li>{{song.author}}</li>
 	<li>{{song.status}}</li>
 	<li> Users
 		<ul>
@@ -35,5 +36,16 @@
 			</label>
 		</div>
 	{{/users}}
+	<input type="submit" class="btn" value="submit" />
+</form>
+
+<h5>Change details</h5>
+<form actions="/songs/{{song.songId}}" method="POST">
+	<label for="title">Song Title:</label>
+	<input type="text" name="title" id="title" class="form-control" placeholder="title" value="{{song.title}}" />
+
+	<label for="author">Song Author:</label>
+	<input type="text" name="author" id="author" class="form-control" placeholder="author" value="{{song.author}}" />
+
 	<input type="submit" class="btn" value="submit" />
 </form>

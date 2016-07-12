@@ -55,6 +55,14 @@ var SongsRepository = function() {
 				if(data.users) {
 					song.users = data.users;
 				}
+
+				if(data.author) {
+					song.author = data.author;
+				}
+
+				if(data.title) {
+					song.title = data.title;
+				}
 				
 				return songDA.save(song);
 			})
